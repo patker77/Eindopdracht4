@@ -1,0 +1,130 @@
+@startuml
+
+class App{
+{method}{static}+void main(String[] args)
+}
+
+interface IStudent{
+{field}+double PASS
+{method}+TiStudent(String stundentnummer, String naam, String geslacht, String klas, String studierichting)
++String getStundentnummer()
++void setStundentnummer(String stundentnummer)
++String getNaam()
++void setNaam(String naam)
++String getGeslacht()
++void setGeslacht(String geslacht)
++String getKlas()
++void setKlas(String klas)
++String getStudierichting()
++void setStudierichting(String studierichting)
++List<IVak> getVakken()
++void setVakken(IVak vak)
++Map<String, Double> getBehaalde()
++double getSum()
++double getStandaardeviatie()
++Map<String, Double> getOnbehaalde()
++double getGemiddel()
+}
+interface IVak{
+{method}+String getModulcode()
++void setModulcode(String modulcode)
++double getCijfer()
++void setCijfer(double cijfer)
++int getJaar()
++void setJaar(int studieJaar)
+
+
+}
+interface IAdministratieMedewerker{
+{field}+Double PASS
++{method}List<IStudent> getStudents()
++void setStudents(List<IStudent> students)
++void getOpsommingBehaald(String vak)
++void  checkBest(String vak)
++void getNietBehaalStudent(String student)
++void getStandaardeviatieEnVariatie(String student)
++void getBehaalStudent(String student)
++void getGemiddelCijferPerVak(String vak)
++void getGemiddelCijferPerStudent(String student)
++void getSumCijferPerStudent(String student)
+}
+IAdministratieMedewerker <|-- Administratie:<<impliment>>
+IVak <|-- TiVak:<<impliment>>
+IStudent <|-- TiStudent:<<impliment>>
+Factory ..> TiStudent:<<Instantier>>
+Factory ..> TiVak:<<Instantier>>
+Factory ..> Administratie:<<Instantier>>
+App ..> Factory:<<gebruikt>>
+Administratie ..>TiStudent:<<Gebruikt>>
+TiStudent ..>TiVak:<<Gebruikt>>
+class Factory{
+{method}{static}+List<IStudent> loadStudentData()
+{static}+IAdministratieMedewerker maakAdministratieMederwerker(List<IStudent> students)
+{static}-static void loadVakken(List<IStudent> student)
+{static}-IStudent maakStudent(String stundentnummer, String naam, String geslacht, String klas, String studierichting)
+{static}-IVak maakVak(String modulcode, double cijfer, int jaar)
+}
+class TiVak{
+{field}-String modulcode
+-double cijfer
+-int jaar
+{method}+String getModulcode()
++void setModulcode(String modulcode)
++double getCijfer()
++void setCijfer(double cijfer)
++int getJaar()
++void setJaar(int studieJaar)
+}
+class Administratie{
+{field}-List<IStudent> students
++{method}List<IStudent> getStudents()
++void setStudents(List<IStudent> students)
++void getOpsommingBehaald(String vak)
++void  checkBest(String vak)
++void getNietBehaalStudent(String student)
++void getStandaardeviatieEnVariatie(String student)
++void getBehaalStudent(String student)
++void getGemiddelCijferPerVak(String vak)
++void getGemiddelCijferPerStudent(String student)
++void getSumCijferPerStudent(String student)
+-void getBehaaldeVak(Map<String, Map<String, Double>> data, String modulecode)
+-List<Map<String,Double>> getBehaaldeVakStudent(String studentNr)
+-List<Map<String,Double>> getNietBehaaldeVakStudent(String studentNr)
+-double getGemiddelCijferVoorVak(String v)
+-double getGemiddelStudent(String studentNr)
+-double getGemiddelStudent(String studentNr)
+-double bestScoreManOfVrouw(String v, String geslacht)
+-double bestScoreManOfVrouw(String v, String geslacht)
+-double getSumCijferStudent(String studentNr)
+-double standaardeviatie(String studentNr)
+}
+
+class TiStudent{
+{field}-String stundentnummer
+-String naam
+-String geslacht
+-String klas
+-String studierichting
+-List<IVak> vakken
+{method}+TiStudent(String stundentnummer, String naam, String geslacht, String klas, String studierichting)
++String getStundentnummer()
++void setStundentnummer(String stundentnummer)
++String getNaam()
++void setNaam(String naam)
++String getGeslacht()
++void setGeslacht(String geslacht)
++String getKlas()
++void setKlas(String klas)
++String getStudierichting()
++void setStudierichting(String studierichting)
++List<IVak> getVakken()
++void setVakken(IVak vak)
++Map<String, Double> getBehaalde()
++double getSum()
++double getStandaardeviatie()
++Map<String, Double> getOnbehaalde()
++double getGemiddel()
+}
+
+
+@enduml
